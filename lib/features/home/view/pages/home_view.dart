@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import 'package:yemektariflerim/features/home/model/product_model.dart';
 import 'package:yemektariflerim/features/home/service/home_service.dart';
 
 import 'package:yemektariflerim/product/network/product_network_manager.dart';
-import 'package:yemektariflerim/product/utility/project_network_image.dart';
-import 'package:yemektariflerim/product/widget/bannerPageView.dart';
 
 import 'package:yemektariflerim/product/widget/tabbarPage_widget.dart';
 
@@ -47,58 +46,9 @@ class homeview extends StatelessWidget {
 
                         return Stack(
                           children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  image: DecorationImage(
-                                    image: NetworkImage(_items.img.toString()),
-                                    fit: BoxFit.fill,
-                                  )),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 180),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFF0E3311)
-                                        .withOpacity(0.2)),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    textWidget(
-                                      textFontSize: 15,
-                                      text: _items.name.toString(),
-                                      textCalor: Colors.white,
-                                    ),
-                                    textWidget(
-                                      textFontSize: 20,
-                                      text: _items.title.toString(),
-                                      textCalor: Colors.white,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 200),
-                                child: Container(
-                                  // color: Colors.black.withOpacity(0.3),
-                                  child: SmoothPageIndicator(
-                                    controller: _bannerPageController,
-                                    count: 3,
-                                    effect: const SwapEffect(
-                                        spacing: 5.0,
-                                        dotWidth: 10,
-                                        dotHeight: 10,
-                                        paintStyle: PaintingStyle.stroke,
-                                        strokeWidth: 2,
-                                        dotColor: Colors.redAccent,
-                                        activeDotColor: Colors.redAccent),
-                                  ),
-                                ),
-                              ),
-                            )
+                            bannerImage(context, _items),
+                            bannerTexts(_items),
+                            indicator()
                           ],
                         );
                       },
@@ -107,8 +57,68 @@ class homeview extends StatelessWidget {
                   );
                 },
               ),
-              mainTabbar(),
+              const mainTabbar(),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding bannerTexts(ProductModel _items) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 180),
+      child: Container(
+        decoration:
+            BoxDecoration(color: const Color(0xFF0E3311).withOpacity(0.2)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            textWidget(
+              textFontSize: 15,
+              text: _items.name.toString(),
+              textCalor: Colors.white,
+            ),
+            textWidget(
+              textFontSize: 20,
+              text: _items.title.toString(),
+              textCalor: Colors.white,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container bannerImage(BuildContext context, ProductModel _items) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          image: DecorationImage(
+            image: NetworkImage(_items.img.toString()),
+            fit: BoxFit.fill,
+          )),
+    );
+  }
+
+  Center indicator() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 200),
+        child: Container(
+          // color: Colors.black.withOpacity(0.3),
+          child: SmoothPageIndicator(
+            controller: _bannerPageController,
+            count: 3,
+            effect: const SwapEffect(
+                spacing: 5.0,
+                dotWidth: 10,
+                dotHeight: 10,
+                paintStyle: PaintingStyle.stroke,
+                strokeWidth: 2,
+                dotColor: Colors.redAccent,
+                activeDotColor: Colors.redAccent),
           ),
         ),
       ),

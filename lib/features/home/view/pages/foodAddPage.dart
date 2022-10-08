@@ -79,12 +79,12 @@ class _foodAddState extends State<foodAdd> {
           const foodAddText(textName: "KAÇ KİŞİLİK:"),
           dropDownMenu(
               selectedValue: selectedValue, dropItems: KacKisilikitems),
-          foodAddText(textName: "HAZIRLAMA SÜRESİ"),
+          const foodAddText(textName: "HAZIRLAMA SÜRESİ"),
           dropDownMenu(
             dropItems: HazirlamaSuresiItems,
             selectedValue: selectedValue,
           ),
-          foodAddText(textName: "PİŞİRME SÜRESİ"),
+          const foodAddText(textName: "PİŞİRME SÜRESİ"),
           dropDownMenu(
             dropItems: PisirmeSuresiItems,
             selectedValue: selectedValue,
@@ -97,7 +97,7 @@ class _foodAddState extends State<foodAdd> {
           foodAddTextField(
               tarifAdiController: malzemeTextControl,
               textName: "Hazırlanışını yazın"),
-          foodAddText(textName: "KATEGORİ"),
+          const foodAddText(textName: "KATEGORİ"),
           dropDownMenu(
             dropItems: KategoriItems,
             selectedValue: selectedValue,
@@ -154,6 +154,7 @@ class _dropDownMenuState extends State<dropDownMenu> {
     return Padding(
       padding: const EdgeInsets.only(top: 5),
       child: CustomDropdownButton2(
+          hint: 'Seçiniz',
           iconDisabledColor: projeColors().whiteColor,
           iconEnabledColor: projeColors().redColor,
           buttonDecoration: BoxDecoration(
@@ -162,7 +163,6 @@ class _dropDownMenuState extends State<dropDownMenu> {
               color: Colors.white,
             ),
           ),
-          hint: "Seçiniz",
           value: widget.selectedValue,
           dropdownItems: widget.dropItems,
           onChanged: (value) {
@@ -210,30 +210,26 @@ class foodAddTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 5),
-      child: Container(
-        // height: MediaQuery.of(context).size.height * 0.05,
-        child: TextField(
-          autofocus: false,
-          maxLines: null,
-          controller: tarifAdiController,
-          keyboardType: TextInputType.text,
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-              fillColor: Colors.transparent,
-              filled: true,
-              hintText: textName,
-              hintStyle: TextStyle(
-                  fontSize: 15,
-                  color: projeColors().whiteColor.withOpacity(0.8)),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(2),
-                borderSide: BorderSide(color: projeColors().whiteColor),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: projeColors().redColor),
-              )),
-        ),
+      child: TextField(
+        autofocus: false,
+        maxLines: null,
+        controller: tarifAdiController,
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+            contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+            fillColor: Colors.transparent,
+            filled: true,
+            hintText: textName,
+            hintStyle: TextStyle(
+                fontSize: 15, color: projeColors().whiteColor.withOpacity(0.8)),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(2),
+              borderSide: BorderSide(color: projeColors().whiteColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: projeColors().redColor),
+            )),
       ),
     );
   }
