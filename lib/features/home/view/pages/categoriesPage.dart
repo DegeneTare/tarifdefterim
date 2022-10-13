@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kartal/kartal.dart';
 import 'package:yemektariflerim/features/home/model/categories_model.dart';
 import 'package:yemektariflerim/product/utility/project_network_image.dart';
+import 'package:yemektariflerim/product/widget/shimmerWidget/shimmerList.dart';
+import 'package:yemektariflerim/product/widget/shimmerWidget/shimmerState.dart';
 import 'package:yemektariflerim/product/widget/textWidget.dart';
 
-import '../../../../product/network/product_network_manager.dart';
+import '../../../../core/init/network/product_network_manager.dart';
+import '../../../../product/widget/loading_center.dart';
 import '../../cubit/cubit/home_cubit.dart';
 import '../../service/home_service.dart';
 
@@ -21,6 +25,9 @@ class categoriesPage extends StatelessWidget {
             children: [
               Expanded(child: BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
+                  if (state.items == null) {
+                    return shimmerList();
+                  }
                   return GridView.builder(
                       itemCount: state.categoriesItem?.length ?? 2,
                       gridDelegate:

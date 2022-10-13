@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:yemektariflerim/features/home/model/product_model.dart';
 import 'package:yemektariflerim/product/utility/project_network_image.dart';
+import 'package:yemektariflerim/product/utility/project_utilitys.dart';
 import 'package:yemektariflerim/product/widget/textWidget.dart';
 
 class productDetailPage extends StatelessWidget {
@@ -23,7 +24,7 @@ class productDetailPage extends StatelessWidget {
               child: Stack(
                 children: [
                   bannerImage(context),
-                  IconsStack(),
+                  banner_icon(context),
                 ],
               ),
             ),
@@ -74,6 +75,41 @@ class productDetailPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Padding banner_icon(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back),
+            iconSize: 25,
+            color: projeColors().redColor,
+          ),
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.share_sharp),
+                color: projeColors().redColor,
+                iconSize: 25,
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.favorite_border),
+                color: projeColors().redColor,
+                iconSize: 25,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -226,38 +262,5 @@ Container dividerHorizontal() {
     width: 50,
     color: projeColors().redColor,
     margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-  );
-}
-
-Padding IconsStack() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 30),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back),
-          iconSize: 25,
-          color: projeColors().redColor,
-        ),
-        Row(
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.share_sharp),
-              color: projeColors().redColor,
-              iconSize: 25,
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.favorite_border),
-              color: projeColors().redColor,
-              iconSize: 25,
-            ),
-          ],
-        ),
-      ],
-    ),
   );
 }

@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ffi';
+
 import 'package:bloc/bloc.dart';
 
 import 'package:equatable/equatable.dart';
@@ -14,22 +17,25 @@ class HomeCubit extends Cubit<HomeState> {
   final IHomeService homeService;
 
   Future<void> fetchAllItems() async {
-    _changeloading();
+    changeloading();
     final response = await homeService.fetchAllProducts();
 
     emit(state.copyWith(items: response ?? []));
-    _changeloading();
+    Timer(
+      Duration(milliseconds: 500),
+      () {
+        changeloading();
+      },
+    );
   }
 
   Future<void> fetchAllCategories() async {
-    _changeloading();
     final CategoriesResponse = await homeService.fetchAllCategories();
 
     emit(state.copyWith(categoriesItem: CategoriesResponse ?? []));
-    _changeloading();
   }
 
-  void _changeloading() {
+  void changeloading() {
     emit(state.copyWith(isLoading: !(state.isLoading ?? false)));
   }
 }

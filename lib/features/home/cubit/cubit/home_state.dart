@@ -10,10 +10,11 @@ class HomeState extends Equatable {
   @override
   List<Object?> get props => [items, isLoading, categoriesItem];
 
-  HomeState copyWith(
-      {List<ProductModel>? items,
-      bool? isLoading,
-      List<CategoriesModel>? categoriesItem}) {
+  HomeState copyWith({
+    List<ProductModel>? items,
+    bool? isLoading,
+    List<CategoriesModel>? categoriesItem,
+  }) {
     return HomeState(
       categoriesItem: categoriesItem ?? this.categoriesItem,
       items: items ?? this.items,

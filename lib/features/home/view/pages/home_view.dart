@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kartal/kartal.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'package:yemektariflerim/features/home/model/product_model.dart';
 import 'package:yemektariflerim/features/home/service/home_service.dart';
 
-import 'package:yemektariflerim/product/network/product_network_manager.dart';
+import 'package:yemektariflerim/core/init/network/product_network_manager.dart';
+import 'package:yemektariflerim/product/widget/loading_center.dart';
+import 'package:yemektariflerim/product/widget/shimmerWidget/shimmerState.dart';
 
 import 'package:yemektariflerim/product/widget/tabbarPage_widget.dart';
 
+import '../../../../product/widget/shimmerWidget/shimmer.dart';
 import '../../../../product/widget/textWidget.dart';
 import '../../cubit/cubit/home_cubit.dart';
 
@@ -21,6 +26,7 @@ class homeview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool _enabled = true;
     return BlocProvider(
       create: (context) => HomeCubit(HomeService(productNetworkManager())),
       child: Scaffold(
@@ -29,9 +35,17 @@ class homeview extends StatelessWidget {
             children: [
               BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
-                  if (state.items == null) return SizedBox.shrink();
+                  if (state.items == null) {
+                    return SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: shimmerState(),
+                    );
+                  }
+
                   int? itemLenght = state.items?.length.toInt();
                   itemLenght = itemLenght! - itemLenght + 3;
+
                   return Container(
                     margin: const EdgeInsets.symmetric(
                         horizontal: 12.0, vertical: 5),
@@ -42,10 +56,16 @@ class homeview extends StatelessWidget {
                       controller: _bannerPageController,
                       itemBuilder: (context, index) {
                         final _items = state.items?[index];
-                        if (_items == null) return const SizedBox.shrink();
+                        if (_items == null) {
+                          return SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.3,
+                          );
+                        }
 
                         return Stack(
                           children: [
+                            shimmerState(),
                             bannerImage(context, _items),
                             bannerTexts(_items),
                             indicator()
@@ -65,6 +85,23 @@ class homeview extends StatelessWidget {
     );
   }
 
+  Widget shimmerWidget() {
+    return BlocSelector<HomeCubit, HomeState, bool>(
+      selector: (state) {
+        return state.isLoading ?? false;
+      },
+      builder: (context, state) {
+        return AnimatedOpacity(
+          opacity: state ? 1 : 0,
+          duration: context.durationLow,
+          child: shimmerWidger(
+            enabled: state,
+          ),
+        );
+      },
+    );
+  }
+
   Padding bannerTexts(ProductModel _items) {
     return Padding(
       padding: const EdgeInsets.only(top: 180),
@@ -72,6 +109,7 @@ class homeview extends StatelessWidget {
         decoration:
             BoxDecoration(color: const Color(0xFF0E3311).withOpacity(0.2)),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             textWidget(

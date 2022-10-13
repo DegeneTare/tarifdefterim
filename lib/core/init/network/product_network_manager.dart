@@ -1,5 +1,5 @@
 import 'package:vexana/vexana.dart';
-import 'package:yemektariflerim/product/constant/application_constant.dart';
+import 'package:yemektariflerim/core/constant/application_constant.dart';
 
 class productNetworkManager extends NetworkManager {
   productNetworkManager()

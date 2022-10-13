@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yemektariflerim/features/home/cubit/cubit/home_cubit.dart';
 import 'package:yemektariflerim/features/home/model/product_model.dart';
-import 'package:yemektariflerim/features/home/view/pages/home_view.dart';
-
+import 'package:yemektariflerim/features/home/view/pages/categoriesPage.dart';
+import 'package:yemektariflerim/product/widget/shimmerWidget/shimmerList.dart';
+import 'package:yemektariflerim/product/widget/shimmerWidget/shimmerState.dart';
 import '../pages/foodDetailPage.dart';
 
 class tabbarPage1Widget extends StatelessWidget {
@@ -13,6 +14,9 @@ class tabbarPage1Widget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
+        if (state.items == null) {
+          return const shimmerList();
+        }
         return Scaffold(
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -20,7 +24,7 @@ class tabbarPage1Widget extends StatelessWidget {
               children: [
                 Expanded(
                   child: GridView.builder(
-                      itemCount: state.items?.length ?? 0,
+                      itemCount: state.items?.length ?? 4,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -29,7 +33,13 @@ class tabbarPage1Widget extends StatelessWidget {
                               crossAxisSpacing: 5),
                       itemBuilder: (BuildContext context, int index) {
                         final _item = state.items?[index];
-                        if (_item == null) return const SizedBox.shrink();
+                        if (_item == null) {
+                          return SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height,
+                            child: const shimmerState(),
+                          );
+                        }
                         return foodCardWidget(
                           item: _item,
                           press: () => Navigator.push(

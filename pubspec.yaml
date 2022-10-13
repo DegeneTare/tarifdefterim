@@ -21,6 +21,7 @@ dependencies:
   dropdown_button2: ^1.8.2
   icon: ^2.2.1
   auto_size_text: ^3.0.0
+
   flutter:
     sdk: flutter
 
@@ -38,6 +39,7 @@ dependencies:
   equatable: ^2.0.5
   kartal: ^2.3.1
   formz: ^0.4.1
+  shimmer: ^2.0.0
   
   #Google
   json_annotation: ^4.6.0
@@ -54,6 +56,8 @@ dependencies:
   build_runner: ^2.2.0
 
 dev_dependencies:
+  very_good_cli: ^0.8.0
+  very_good_analysis: ^3.1.0
 
   flutter_test:
     sdk: flutter
@@ -78,6 +82,7 @@ flutter:
   uses-material-design: true
 
   assets:
+  - assets/
   - assets/png/ 
 
   # To add assets to your application, add an assets section, like this:

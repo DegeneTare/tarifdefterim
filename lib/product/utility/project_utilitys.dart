@@ -6,6 +6,7 @@ class projeColors {
   final Color blackColor = Colors.black;
   final Color whiteColor = Colors.white;
   final Color LightWhiteC = Colors.white60;
+  final Color blue = Colors.blue;
 }
 
 final List<String> KacKisilikitems = [
