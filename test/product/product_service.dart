@@ -10,7 +10,7 @@ void main() {
   });
 
   test('fetchAllProducts - test', () async {
-    final response = await homeService.fetchAllCategories();
+    final response = await homeService.fetchAllProductsWithSort();
 
     expect(response, isNotEmpty);
   });

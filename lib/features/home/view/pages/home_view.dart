@@ -65,7 +65,6 @@ class homeview extends StatelessWidget {
 
                         return Stack(
                           children: [
-                            shimmerState(),
                             bannerImage(context, _items),
                             bannerTexts(_items),
                             indicator()

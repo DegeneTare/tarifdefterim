@@ -26,7 +26,7 @@ class categoriesPage extends StatelessWidget {
               Expanded(child: BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
                   if (state.items == null) {
-                    return shimmerList();
+                    return const shimmerList();
                   }
                   return GridView.builder(
                       itemCount: state.categoriesItem?.length ?? 2,
