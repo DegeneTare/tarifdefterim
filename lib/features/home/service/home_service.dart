@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:vexana/vexana.dart';
 import 'package:yemektariflerim/features/home/model/categories_model.dart';
+import 'package:yemektariflerim/features/home/model/postProduct_model.dart';
 import 'package:yemektariflerim/features/home/model/product_model.dart';
 import 'package:yemektariflerim/product/query/product_queries.dart';
 
@@ -17,10 +19,21 @@ abstract class IHomeService {
   Future<List<ProductModel>?> fetchAllProducts();
   Future<List<CategoriesModel>?> fetchAllCategories();
   Future<List<ProductModel>?> fetchAllProductsWithSort();
+  Future<IResponseModel<ProductModel?>?> postProduct(postProductModel model);
 }
 
 class HomeService extends IHomeService {
   HomeService(INetworkManager networkManager) : super(networkManager);
+
+  @override
+  Future<IResponseModel<ProductModel?>?> postProduct(
+      postProductModel model) async {
+    return await _networkManager.send<ProductModel, ProductModel>(
+        _HomeServicePath.foods.name,
+        data: model,
+        parseModel: ProductModel(),
+        method: RequestType.POST);
+  }
 
   @override
   Future<List<ProductModel>?> fetchAllProductsWithSort() async {

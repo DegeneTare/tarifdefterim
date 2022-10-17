@@ -1,6 +1,8 @@
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yemektariflerim/features/home/cubit/cubit/home_cubit.dart';
 
 import 'package:yemektariflerim/product/widget/textWidget.dart';
 
@@ -22,29 +24,71 @@ class _foodAddState extends State<foodAdd> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: foodAddAppbar(),
-      // resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.grey[900],
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.96,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: projeColors().blackColor),
-                  child: containerWidgetItems(),
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: foodAddAppbar(),
+          // resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.grey[900],
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.96,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: projeColors().blackColor),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const foodAddText(textName: "TARİF ADI:"),
+                            foodAddTextField(
+                                tarifAdiController: tarifAdiController,
+                                textName: "Tarif Adı"),
+                            const foodAddText(textName: "KAÇ KİŞİLİK:"),
+                            dropDownMenu(
+                                selectedValue: selectedValue,
+                                dropItems: KacKisilikitems),
+                            const foodAddText(textName: "HAZIRLAMA SÜRESİ"),
+                            dropDownMenu(
+                              dropItems: HazirlamaSuresiItems,
+                              selectedValue: selectedValue,
+                            ),
+                            const foodAddText(textName: "PİŞİRME SÜRESİ"),
+                            dropDownMenu(
+                              dropItems: PisirmeSuresiItems,
+                              selectedValue: selectedValue,
+                            ),
+                            const foodAddText(textName: "MALZEMELER"),
+                            foodAddTextField(
+                                tarifAdiController: malzemeTextControl,
+                                textName: "Malzeme Girin"),
+                            const foodAddText(textName: "HAZIRLANIŞI"),
+                            foodAddTextField(
+                                tarifAdiController: malzemeTextControl,
+                                textName: "Hazırlanışını yazın"),
+                            const foodAddText(textName: "KATEGORİ"),
+                            dropDownMenu(
+                              dropItems: KategoriItems,
+                              selectedValue: selectedValue,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    foodAddButton(context)
+                  ],
                 ),
-                foodAddButton(context)
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

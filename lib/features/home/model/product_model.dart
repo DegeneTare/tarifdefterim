@@ -4,7 +4,6 @@ part 'product_model.g.dart';
 
 @JsonSerializable()
 class ProductModel extends INetworkModel<ProductModel> {
-  int? id;
   String? title;
   String? name;
   String? kacKisilik;
@@ -15,6 +14,7 @@ class ProductModel extends INetworkModel<ProductModel> {
   String? kategori;
   String? img;
   int? favorite;
+
   @override
   ProductModel fromJson(Map<String, dynamic> json) {
     return _$ProductModelFromJson(json);

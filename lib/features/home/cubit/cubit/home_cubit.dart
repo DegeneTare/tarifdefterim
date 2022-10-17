@@ -25,11 +25,10 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> fetchAllItems() async {
     changeloading();
-
     final response = await homeService.fetchAllProducts();
     emit(state.copyWith(items: response ?? []));
     Timer(
-      Duration(milliseconds: 2000),
+      const Duration(milliseconds: 500),
       () {
         changeloading();
       },
@@ -41,7 +40,7 @@ class HomeCubit extends Cubit<HomeState> {
     final response = await homeService.fetchAllProductsWithSort();
     emit(state.copyWith(sortItems: response ?? []));
     Timer(
-      Duration(milliseconds: 500),
+      const Duration(milliseconds: 500),
       () {
         changeloading();
       },

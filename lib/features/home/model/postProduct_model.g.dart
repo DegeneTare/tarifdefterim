@@ -1,24 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'product_model.dart';
+part of 'postProduct_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel()
-  ..title = json['title'] as String?
-  ..name = json['name'] as String?
-  ..kacKisilik = json['kacKisilik'] as String?
-  ..hazirlanmaSuresi = json['hazirlanmaSuresi'] as String?
-  ..pisirmeSuresi = json['pisirmeSuresi'] as String?
-  ..malzemeler = json['malzemeler'] as String?
-  ..hazirlanisi = json['hazirlanisi'] as String?
-  ..kategori = json['kategori'] as String?
-  ..img = json['img'] as String?
-  ..favorite = json['favorite'] as int?;
+postProductModel _$postProductModelFromJson(Map<String, dynamic> json) =>
+    postProductModel(
+      json['title'] as String?,
+      json['name'] as String?,
+      json['kacKisilik'] as String?,
+      json['hazirlanmaSuresi'] as String?,
+      json['pisirmeSuresi'] as String?,
+      json['malzemeler'] as String?,
+      json['hazirlanisi'] as String?,
+      json['kategori'] as String?,
+      json['img'] as String?,
+      json['favorite'] as int?,
+    );
 
-Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
+Map<String, dynamic> _$postProductModelToJson(postProductModel instance) =>
     <String, dynamic>{
       'title': instance.title,
       'name': instance.name,

@@ -11,7 +11,7 @@ class shimmerState extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocSelector<HomeCubit, HomeState, bool>(
       selector: (state) {
-        return state.isLoading ?? false;
+        return state.isLoading == false;
       },
       builder: (context, state) {
         return AnimatedOpacity(
