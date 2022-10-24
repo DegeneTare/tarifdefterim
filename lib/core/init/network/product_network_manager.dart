@@ -7,3 +7,10 @@ class productNetworkManager extends NetworkManager {
             options:
                 BaseOptions(baseUrl: applicationConstant.instance.baseUrl));
 }
+
+class imageNetworkManager extends NetworkManager {
+  imageNetworkManager()
+      : super(
+            options:
+                BaseOptions(baseUrl: applicationConstant.instance.imageUrl));
+}

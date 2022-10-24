@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:vexana/vexana.dart';
 import 'package:yemektariflerim/features/home/model/categories_model.dart';
 import 'package:yemektariflerim/features/home/model/postProduct_model.dart';
 import 'package:yemektariflerim/features/home/model/product_model.dart';
 import 'package:yemektariflerim/product/query/product_queries.dart';
+
+import '../model/image_upload_model.dart';
 
 enum _HomeServicePath {
   foods,
@@ -20,9 +24,11 @@ abstract class IHomeService {
   Future<List<CategoriesModel>?> fetchAllCategories();
   Future<List<ProductModel>?> fetchAllProductsWithSort();
   Future<IResponseModel<ProductModel?>?> postProduct(postProductModel model);
+  Future<IResponseModel<ImageUploadResponse?>?> postImages(File? image);
 }
 
 class HomeService extends IHomeService {
+  late final Dio dio;
   HomeService(INetworkManager networkManager) : super(networkManager);
 
   @override
@@ -32,6 +38,14 @@ class HomeService extends IHomeService {
         _HomeServicePath.foods.name,
         data: model,
         parseModel: ProductModel(),
+        method: RequestType.POST);
+  }
+
+  @override
+  Future<IResponseModel<ImageUploadResponse?>?> postImages(File? image) async {
+    return await _networkManager.send<ImageUploadResponse, ImageUploadResponse>(
+        'A2yTjtpmqSxmWyLwILcOEz',
+        parseModel: ImageUploadResponse(),
         method: RequestType.POST);
   }
 

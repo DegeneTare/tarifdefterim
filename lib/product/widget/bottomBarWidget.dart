@@ -10,8 +10,6 @@ import 'package:yemektariflerim/product/widget/textWidget.dart';
 import '../../features/home/view/pages/categoriesPage.dart';
 
 class BottomBar extends StatefulWidget {
-  int selectedIndex = 0;
-
   BottomBar({Key? key}) : super(key: key);
 
   @override

@@ -19,8 +19,11 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   auto_size_text_field: ^2.1.0
   dropdown_button2: ^1.8.2
+  flutter_awesome_alert_box: ^2.1.1
   icon: ^2.2.1
   auto_size_text: ^3.0.0
+  image_picker: ^0.8.6
+
 
   flutter:
     sdk: flutter
@@ -31,6 +34,8 @@ dependencies:
   #States
   bloc: ^8.1.0
   flutter_bloc: ^8.1.1
+  mobx: ^2.1.1
+  mobx_codegen: ^2.0.7+3
 
   #Network
   vexana: ^3.0.1

@@ -7,5 +7,6 @@ class applicationConstant {
 
   applicationConstant._init();
   final String baseUrl = 'http://192.168.0.16:3000/';
+  final String imageUrl = 'https://www.filestackapi.com/api/store/S3?key=';
   final String dummyImage = 'https://picsum.photos/200/300';
 }

@@ -9,6 +9,10 @@ class projeColors {
   final Color blue = Colors.blue;
 }
 
+class fontSize {
+  final double normal = 13;
+}
+
 final List<String> KacKisilikitems = [
   '1-2',
   '2-3',
