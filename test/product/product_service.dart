@@ -17,20 +17,12 @@ void main() {
 
   setUp(() {
     homeService = HomeService(NetworkManager(
-        options: BaseOptions(
-            baseUrl:
-                'https://www.filestackapi.com/api/store/S3?key=A2yTjtpmqSxmWyLwILcOEz')));
-    //ProductModel('asdas','asdas','asda','asdas','asda','asdas','asdasas','asdas',3)
-
-    PostService = postService(NetworkManager(
-        options: BaseOptions(
-            baseUrl:
-                'https://www.filestackapi.com/api/store/S3?key=A2yTjtpmqSxmWyLwILcOEz')));
+        options: BaseOptions(baseUrl: 'http://192.168.0.16:3000/')));
   });
 
-  test('fetchAllProducts - test', () {
-    final response = homeService.postImages(image);
+  test('fetchAllProducts - test', () async {
+    //final response = await homeService.fetchSelectedProducts('/Tatlı');
 
-    expect(response, isNotNull);
+    // expect(response, isNotNull);
   });
 }

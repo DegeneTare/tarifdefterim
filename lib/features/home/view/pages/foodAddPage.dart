@@ -162,14 +162,7 @@ class _foodAddState extends State<foodAdd> {
               kategoriController.toString(),
               'https://im.haberturk.com/2019/12/04/ver1575459460/adana-kebap_2546270_810x458.jpg',
               5);
-          BlocProvider(
-            create: (context) => HomeCubit(HomeService(imageNetworkManager())),
-            child: textWidget(
-              textFontSize: 14,
-              text: "eren",
-              textCalor: Colors.yellow,
-            ),
-          );
+       
         }
       },
     );

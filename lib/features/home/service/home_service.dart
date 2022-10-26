@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:vexana/vexana.dart';
 import 'package:yemektariflerim/features/home/model/categories_model.dart';
 import 'package:yemektariflerim/features/home/model/postProduct_model.dart';
 import 'package:yemektariflerim/features/home/model/product_model.dart';
 import 'package:yemektariflerim/product/query/product_queries.dart';
+import 'package:yemektariflerim/product/utility/project_utilitys.dart';
 
 import '../model/image_upload_model.dart';
 
@@ -21,6 +23,7 @@ abstract class IHomeService {
       : _networkManager = networkManager;
 
   Future<List<ProductModel>?> fetchAllProducts();
+  Future<List<ProductModel>?> fetchSelectedProducts(String data);
   Future<List<CategoriesModel>?> fetchAllCategories();
   Future<List<ProductModel>?> fetchAllProductsWithSort();
   Future<IResponseModel<ProductModel?>?> postProduct(postProductModel model);
@@ -67,6 +70,17 @@ class HomeService extends IHomeService {
     final response = await _networkManager
         .send<ProductModel, List<ProductModel>>(_HomeServicePath.foods.name,
             parseModel: ProductModel(), method: RequestType.GET);
+
+    return response.data;
+  }
+
+  @override
+  Future<List<ProductModel>?> fetchSelectedProducts(String data) async {
+    final response =
+        await _networkManager.send<ProductModel, List<ProductModel>>(
+            _HomeServicePath.foods.name + '/$data',
+            parseModel: ProductModel(),
+            method: RequestType.GET);
 
     return response.data;
   }

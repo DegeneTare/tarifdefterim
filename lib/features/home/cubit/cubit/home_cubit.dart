@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,13 @@ class HomeCubit extends Cubit<HomeState> {
         changeloading();
       },
     );
+  }
+
+  Future<void> fetchSelectedProducts(String data) async {
+    emit(state.copyWith(selectItems: data.toString()));
+    final Response =
+        await homeService.fetchSelectedProducts(state.selectItems.toString());
+    emit(state.copyWith(selectItems: data.toString(), selectedItems: Response));
   }
 
   Future<void> postProduct(

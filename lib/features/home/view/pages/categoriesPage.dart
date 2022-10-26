@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 import 'package:yemektariflerim/features/home/model/categories_model.dart';
+import 'package:yemektariflerim/features/home/view/pages/listCategoriesItems.dart';
 import 'package:yemektariflerim/product/utility/project_network_image.dart';
 import 'package:yemektariflerim/product/widget/shimmerWidget/shimmerList.dart';
 import 'package:yemektariflerim/product/widget/shimmerWidget/shimmerState.dart';
@@ -38,25 +39,36 @@ class categoriesPage extends StatelessWidget {
                               crossAxisSpacing: 10),
                       itemBuilder: (BuildContext context, int index) {
                         final _CategoriesItem = state.categoriesItem?[index];
+
                         if (_CategoriesItem == null)
                           return const SizedBox.shrink();
 
                         return Card(
-                            child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
+                            child: GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _categoriesTitle(context, _CategoriesItem),
+                                Expanded(
+                                  child: _categoriesImage(
+                                      context, _CategoriesItem),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _categoriesTitle(context, _CategoriesItem),
-                              Expanded(
-                                child:
-                                    _categoriesImage(context, _CategoriesItem),
-                              ),
-                            ],
-                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ListCategories(
+                                          kategoriItem: _CategoriesItem,
+                                        )));
+                          },
                         ));
                       });
                 },
