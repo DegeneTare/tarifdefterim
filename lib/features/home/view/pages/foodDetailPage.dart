@@ -37,38 +37,12 @@ class productDetailPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: textWidget(
-                          textFontSize: 15,
-                          text: "Malzemeler: ",
-                          textCalor: projeColors().whiteColor),
-                    ),
+                    malzemelerText(),
                     dividerHorizontal(),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 10),
-                      child: Text(item.malzemeler.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(color: projeColors().whiteColor)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: textWidget(
-                          textFontSize: 15,
-                          text: "Hazırlanışı: ",
-                          textCalor: projeColors().whiteColor),
-                    ),
+                    malzemelerItems(context),
+                    hazirlanisiText(),
                     dividerHorizontal(),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10),
-                      child: Text(item.hazirlanisi.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(color: projeColors().whiteColor)),
-                    ),
+                    hazirlanisiItems(context),
                   ],
                 ),
               ),
@@ -76,6 +50,48 @@ class productDetailPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Padding hazirlanisiItems(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: 10, left: 10),
+      child: Text(item.hazirlanisi.toString(),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              ?.copyWith(color: projeColors().whiteColor)),
+    );
+  }
+
+  Padding hazirlanisiText() {
+    return Padding(
+      padding: EdgeInsets.only(top: 10),
+      child: textWidget(
+          textFontSize: 15,
+          text: "Hazırlanışı: ",
+          textCalor: projeColors().whiteColor),
+    );
+  }
+
+  Padding malzemelerItems(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 10),
+      child: Text(item.malzemeler.toString(),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              ?.copyWith(color: projeColors().whiteColor)),
+    );
+  }
+
+  Padding malzemelerText() {
+    return Padding(
+      padding: EdgeInsets.only(top: 10),
+      child: textWidget(
+          textFontSize: 15,
+          text: "Malzemeler: ",
+          textCalor: projeColors().whiteColor),
     );
   }
 

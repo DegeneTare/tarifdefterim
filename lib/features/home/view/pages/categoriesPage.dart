@@ -4,6 +4,7 @@ import 'package:kartal/kartal.dart';
 import 'package:yemektariflerim/features/home/model/categories_model.dart';
 import 'package:yemektariflerim/features/home/view/pages/listCategoriesItems.dart';
 import 'package:yemektariflerim/product/utility/project_network_image.dart';
+import 'package:yemektariflerim/product/widget/bottomBarWidget.dart';
 import 'package:yemektariflerim/product/widget/shimmerWidget/shimmerList.dart';
 import 'package:yemektariflerim/product/widget/shimmerWidget/shimmerState.dart';
 import 'package:yemektariflerim/product/widget/textWidget.dart';
@@ -29,53 +30,58 @@ class categoriesPage extends StatelessWidget {
                   if (state.items == null) {
                     return const shimmerList();
                   }
-                  return GridView.builder(
-                      itemCount: state.categoriesItem?.length ?? 2,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 1.5,
-                              mainAxisSpacing: 5,
-                              crossAxisSpacing: 10),
-                      itemBuilder: (BuildContext context, int index) {
-                        final _CategoriesItem = state.categoriesItem?[index];
-
-                        if (_CategoriesItem == null)
-                          return const SizedBox.shrink();
-
-                        return Card(
-                            child: GestureDetector(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                _categoriesTitle(context, _CategoriesItem),
-                                Expanded(
-                                  child: _categoriesImage(
-                                      context, _CategoriesItem),
-                                ),
-                              ],
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ListCategories(
-                                          kategoriItem: _CategoriesItem,
-                                        )));
-                          },
-                        ));
-                      });
+                  return categoriesGridview(state);
                 },
               )),
             ],
           )),
     );
+  }
+
+  GridView categoriesGridview(HomeState state) {
+    return GridView.builder(
+        itemCount: state.categoriesItem?.length ?? 2,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1.5,
+            mainAxisSpacing: 5,
+            crossAxisSpacing: 10),
+        itemBuilder: (BuildContext context, int index) {
+          final _CategoriesItem = state.categoriesItem?[index];
+
+          if (_CategoriesItem == null) return const SizedBox.shrink();
+
+          return categoriesCards(context, _CategoriesItem);
+        });
+  }
+
+  Card categoriesCards(BuildContext context, CategoriesModel _CategoriesItem) {
+    return Card(
+        child: GestureDetector(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _categoriesTitle(context, _CategoriesItem),
+            Expanded(
+              child: _categoriesImage(context, _CategoriesItem),
+            ),
+          ],
+        ),
+      ),
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ListCategories(
+                      kategoriItem: _CategoriesItem,
+                    )));
+      },
+    ));
   }
 
   SizedBox _categoriesTitle(

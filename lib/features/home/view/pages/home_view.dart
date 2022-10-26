@@ -36,44 +36,11 @@ class homeview extends StatelessWidget {
               BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
                   if (state.items == null) {
-                    return SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      child: shimmerState(),
-                    );
+                    return shimmer(context);
                   }
-
                   int? itemLenght = state.items?.length.toInt();
                   itemLenght = itemLenght! - itemLenght + 3;
-
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 5),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    decoration: const BoxDecoration(),
-                    child: PageView.builder(
-                      controller: _bannerPageController,
-                      itemBuilder: (context, index) {
-                        final _items = state.items?[index];
-                        if (_items == null) {
-                          return SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.3,
-                          );
-                        }
-
-                        return Stack(
-                          children: [
-                            bannerImage(context, _items),
-                            bannerTexts(_items),
-                            indicator()
-                          ],
-                        );
-                      },
-                      itemCount: (itemLenght),
-                    ),
-                  );
+                  return bannerItems(context, state, itemLenght);
                 },
               ),
               const mainTabbar(),
@@ -84,20 +51,38 @@ class homeview extends StatelessWidget {
     );
   }
 
-  Widget shimmerWidget() {
-    return BlocSelector<HomeCubit, HomeState, bool>(
-      selector: (state) {
-        return state.isLoading ?? false;
-      },
-      builder: (context, state) {
-        return AnimatedOpacity(
-          opacity: state ? 1 : 0,
-          duration: context.durationLow,
-          child: shimmerWidger(
-            enabled: state,
-          ),
-        );
-      },
+  Container bannerItems(BuildContext context, HomeState state, int itemLenght) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 5),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.3,
+      decoration: const BoxDecoration(),
+      child: PageView.builder(
+        controller: _bannerPageController,
+        itemBuilder: (context, index) {
+          final _items = state.items?[index];
+          if (_items == null) {
+            return SizedBox();
+          }
+
+          return Stack(
+            children: [
+              bannerImage(context, _items),
+              bannerTexts(_items),
+              indicator()
+            ],
+          );
+        },
+        itemCount: (itemLenght),
+      ),
+    );
+  }
+
+  SizedBox shimmer(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.3,
+      child: shimmerState(),
     );
   }
 
