@@ -6,15 +6,14 @@ import 'package:vexana/vexana.dart';
 import 'package:yemektariflerim/features/home/model/categories_model.dart';
 import 'package:yemektariflerim/features/home/model/postProduct_model.dart';
 import 'package:yemektariflerim/features/home/model/product_model.dart';
+import 'package:yemektariflerim/features/home/model/register_model.dart';
+import 'package:yemektariflerim/features/home/model/user_model.dart';
 import 'package:yemektariflerim/product/query/product_queries.dart';
 import 'package:yemektariflerim/product/utility/project_utilitys.dart';
 
 import '../model/image_upload_model.dart';
 
-enum _HomeServicePath {
-  foods,
-  categories,
-}
+enum _HomeServicePath { foods, categories, users }
 
 abstract class IHomeService {
   late final INetworkManager _networkManager;
@@ -28,6 +27,7 @@ abstract class IHomeService {
   Future<List<ProductModel>?> fetchAllProductsWithSort();
   Future<IResponseModel<ProductModel?>?> postProduct(postProductModel model);
   Future<IResponseModel<ImageUploadResponse?>?> postImages(File? image);
+  Future<IResponseModel<UsersModel?>?> postRegister(registerModel model);
 }
 
 class HomeService extends IHomeService {
@@ -42,6 +42,15 @@ class HomeService extends IHomeService {
         data: model,
         parseModel: ProductModel(),
         method: RequestType.POST);
+  }
+
+  @override
+  Future<IResponseModel<UsersModel?>?> postRegister(registerModel model) async {
+    return await _networkManager.send<UsersModel, UsersModel>(
+        _HomeServicePath.users.name,
+        data: model,
+        method: RequestType.POST,
+        parseModel: UsersModel());
   }
 
   @override

@@ -12,6 +12,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:yemektariflerim/features/home/model/categories_model.dart';
 import 'package:yemektariflerim/features/home/model/postProduct_model.dart';
 import 'package:yemektariflerim/features/home/model/product_model.dart';
+import 'package:yemektariflerim/features/home/model/register_model.dart';
+import 'package:yemektariflerim/features/home/model/user_model.dart';
 import 'package:yemektariflerim/features/home/service/home_service.dart';
 import 'package:yemektariflerim/product/utility/image_upload.dart';
 
@@ -64,6 +66,19 @@ class HomeCubit extends Cubit<HomeState> {
     final postProductResponse = await homeService.postProduct(state.postItems!);
     emit(state.copyWith(
         isLoading: false, isCompleted: postProductResponse?.data != null));
+  }
+
+  Future<void> postRegister(
+      String userName, String email, String password) async {
+    emit(state.copyWith(
+        isLoading: true,
+        postRegisterItems: registerModel(userName, email, password)));
+    final postRegisterResponse =
+        await homeService.postRegister(state.postRegisterItems!);
+    emit(state.copyWith(
+        isLoading: true,
+        registerComplete: true,
+        userItems: postRegisterResponse!.data));
   }
 
   Future<void> postImages() async {

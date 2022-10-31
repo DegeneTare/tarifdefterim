@@ -41,7 +41,7 @@ class loginPage extends StatelessWidget {
                           text: "Hoşgeldiniz ",
                           textCalor: projeColors().redColor),
                       textFieldLoginWidget(
-                          emailLoginController: _emailLoginController,
+                          textController: _emailLoginController,
                           textFieldLogin: "E-mail"),
                       SifreTextFieldLoginWidget(
                           emailLoginController: _passwordLoginController,
@@ -235,12 +235,11 @@ class loginPage extends StatelessWidget {
 class textFieldLoginWidget extends StatelessWidget {
   const textFieldLoginWidget({
     Key? key,
-    required TextEditingController emailLoginController,
+    required this.textController,
     required this.textFieldLogin,
-  })  : _emailLoginController = emailLoginController,
-        super(key: key);
+  }) : super(key: key);
 
-  final TextEditingController _emailLoginController;
+  final textController;
   final String textFieldLogin;
 
   @override
@@ -253,7 +252,7 @@ class textFieldLoginWidget extends StatelessWidget {
         style: TextStyle(color: Colors.black),
         autofocus: false,
         maxLines: 1,
-        controller: _emailLoginController,
+        controller: textController,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
             fillColor: Colors.white,
