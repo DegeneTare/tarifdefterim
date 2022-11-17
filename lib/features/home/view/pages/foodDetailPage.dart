@@ -257,7 +257,7 @@ class productDetailPage extends StatelessWidget {
     return Container(
       color: Colors.grey[900],
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.4,
+      height: MediaQuery.of(context).size.height * 0.3,
       child: projectNetworkImage.network(src: item.img.toString()),
     );
   }
